@@ -1,42 +1,44 @@
 package com.caw24g.grupp_uppgift.controllers;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequestMapping("/posts")
 public class PostController {
 
+    //Visar alla inlägg
+    @GetMapping
+    public List<Post> getAllPosts() {
 
-    @GetMapping("/showPosts")
-    public String getStartPage() {
-
-        return "posts";
+        return List;
     }
 
+    //Lägger till ett nytt inlägg
+    @PostMapping
+    public Post addPost() {
 
-    @PostMapping("/addPost")
-    public String addPost() {
-
-        return "posts";
+        return post;
     }
 
+    //Uppdaterar ett inlägg
+    @PutMapping("/{id}")
+    public Post updatePost() {
 
-    @PostMapping("/updatePost")
-    public String updatePost() {
-
-        return "posts";
+        return updatePost();
     }
 
-    @PostMapping("/deletePost")
-    public String deletePost() {
+    //Tar bort ett inlägg
+    @DeleteMapping("/{id}")
+    public ResponseEntity<> deletePost() {
 
-        return "posts";
+        return ResponseEntity;
     }
 
-    @PostMapping("/reviewPost")
-    public String reviewPost() {
+    @PostMapping("/{id}")
+    public ResponseEntity<String> reviewPost() {
 
-        return "posts";
+        return ResponseEntity;
     }
 }

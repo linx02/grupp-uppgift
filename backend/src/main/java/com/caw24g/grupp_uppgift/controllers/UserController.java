@@ -1,33 +1,38 @@
 package com.caw24g.grupp_uppgift.controllers;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequestMapping("/user")
 public class UserController {
 
-    @GetMapping("/user")
-    public String showUserPage() {
+    //Visar användarens profil
+    @GetMapping
+    public User showUserPage() {
 
-        return "user";
+        return user;
     }
 
-    @PostMapping("/addUser")
-    public String addNewUser() {
+    //Lägger till en ny användare
+    @PostMapping
+    public ResponseEntity<String> addNewUser(User user) {
 
-        return "user";
+        return ResponseEntity;
     }
 
-    @PostMapping("/deleteUser")
-    public String deleteUser() {
+    //Tar bort en användare
+    @DeleteMapping("/{id}")
+    public ResponseEntity<> deleteUser() {
 
-        return "home";
+        return ResponseEntity;
     }
 
-    @PostMapping("/updateUser")
-    public String updateUser() {
+    //Uppdaterar en användares information
+    @PutMapping("/{id}")
+    public User updateUser() {
 
-        return "user";
+        return updatedUser;
     }
 }
