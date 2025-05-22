@@ -1,10 +1,10 @@
 export interface Review {
-  id: string;
-  title: string;
-  content: string;
+  id: string | number;
+  location: string;
+  review: string;
   rating: number;
   author: string;
   image: string;
-  createdAt: string;
-  updatedAt: string;
+  date: string;
+  city: string;
 }
