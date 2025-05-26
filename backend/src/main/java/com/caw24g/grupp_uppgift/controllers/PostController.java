@@ -19,6 +19,8 @@ public class PostController {
         return ResponseEntity.ok(posts);
     }
 
+    // Finns 2 tillvägagångssätt här, antingen skickar jag bilden som base64 ihop
+    // med resterande json eller så måste Controllern ta emot multipart/form-data
     //Lägger till ett nytt inlägg
     @PostMapping
     public ResponseEntity<String> addPost() {
@@ -26,6 +28,7 @@ public class PostController {
         return ResponseEntity.ok("Post added successfully");
     }
 
+    // Vi kan låta bli den här funktionaliteten för enkelhetens skull?
     //Uppdaterar ett inlägg
     @PutMapping("/{id}")
     public ResponseEntity<String> updatePost() {
@@ -40,6 +43,7 @@ public class PostController {
         return ResponseEntity.ok("Post deleted successfully");
     }
 
+    // Vad är denna till för?
     @PostMapping("/{id}")
     public ResponseEntity<String> reviewPost() {
 

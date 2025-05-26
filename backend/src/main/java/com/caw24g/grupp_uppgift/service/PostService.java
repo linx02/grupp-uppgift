@@ -1,9 +1,11 @@
 package com.caw24g.grupp_uppgift.service;
 
+import com.caw24g.grupp_uppgift.models.City;
 import com.caw24g.grupp_uppgift.models.Post;
 import com.caw24g.grupp_uppgift.models.User;
 import com.caw24g.grupp_uppgift.repositories.PostRepository;
 import com.caw24g.grupp_uppgift.repositories.UserRepository;
+import com.caw24g.grupp_uppgift.repositories.CityRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,17 +17,20 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final CityRepository cityRepository;
     private final S3Service s3Service;
 
 
-    public PostService(PostRepository postRepository, UserRepository userRepository, S3Service s3Service) {
+    public PostService(PostRepository postRepository, UserRepository userRepository, CityRepository cityRepository, S3Service s3Service) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
+        this.cityRepository = cityRepository;
         this.s3Service = s3Service;
     }
 
+    // Denna måste antingen ta filen som base64, eller så måste Controllern uppdateras
     @Transactional
-    public Post createPostWithImage(int userId, String location, int rating, String review, MultipartFile imageFile) {
+    public Post createPostWithImage(int userId, String location, int rating, String review, MultipartFile imageFile, int cityId) {
         validateRating(rating);
 
         User user = userRepository.findById(userId)
@@ -43,16 +48,25 @@ public class PostService {
             }
         }
 
+        if (cityId <= 0) {
+            throw new IllegalArgumentException("Ogiltigt cityId: " + cityId);
+        }
+
+        City city = cityRepository.findById(cityId)
+                .orElseThrow(() -> new IllegalArgumentException("Stad med ID " + cityId + " finns inte."));
+
         Post post = new Post();
         post.setUser(user);
         post.setLocation(location);
         post.setRating(rating);
         post.setReview(review);
         post.setImageUrl(imageUrl);
+        post.setCity(city);
 
         return postRepository.save(post);
     }
 
+    // Vi kan låta bli den här funktionaliteten för enkelhetens skull?
     @Transactional
     public Post updatePost(int postId, String location, int rating, String review, MultipartFile imageFile) {
         validateRating(rating);

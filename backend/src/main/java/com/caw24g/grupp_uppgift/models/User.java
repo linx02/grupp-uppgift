@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+
+// Lägg till ett lösenord så kan vi bara använda HTTP Basic auth
+// och cleartext lösenord i databasen, säkerhet är inte prioritet
 @Entity
 public class User {
     @Id
@@ -16,7 +19,5 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts;
-
-
 
 }

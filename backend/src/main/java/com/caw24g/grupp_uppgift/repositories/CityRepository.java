@@ -1,4 +1,7 @@
 package com.caw24g.grupp_uppgift.repositories;
 
-public interface CityRepository {
+import com.caw24g.grupp_uppgift.models.City;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CityRepository extends JpaRepository<City, Integer> {
 }
