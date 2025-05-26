@@ -6,6 +6,7 @@ import com.caw24g.grupp_uppgift.models.User;
 import com.caw24g.grupp_uppgift.repositories.PostRepository;
 import com.caw24g.grupp_uppgift.repositories.UserRepository;
 import com.caw24g.grupp_uppgift.repositories.CityRepository;
+import com.caw24g.grupp_uppgift.service.S3Service;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
