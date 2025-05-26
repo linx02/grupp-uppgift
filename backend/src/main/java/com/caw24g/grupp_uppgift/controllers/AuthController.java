@@ -1,4 +1,4 @@
-package com.caw24g.grupp_uppgift.controller;
+package com.caw24g.grupp_uppgift.controllers;
 
 
 import com.caw24g.grupp_uppgift.models.User;
