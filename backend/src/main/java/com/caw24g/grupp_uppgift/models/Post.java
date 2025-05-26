@@ -2,8 +2,6 @@ package com.caw24g.grupp_uppgift.models;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 public class Post {
     @Id
@@ -18,15 +16,21 @@ public class Post {
 
     private String imageUrl;
 
+    @ManyToOne
+    @JoinColumn(name = "city_id", nullable = false)
+    private City city;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public Post(String location, String review, int rating) {
+    public Post(String location, String review, int rating, String imageUrl, City city, User user) {
         this.location = location;
         this.review = review;
         this.rating = rating;
+        this.imageUrl = imageUrl;
+        this.city = city;
+        this.user = user;
     }
 
 
@@ -75,5 +79,17 @@ public class Post {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public User getUser() {
+        return user;
     }
 }
