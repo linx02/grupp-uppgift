@@ -54,7 +54,7 @@ public class PostService {
     }
 
     @Transactional
-    public Post updatePost(int postId, String location, int rating, String review) {
+    public Post updatePost(int postId, String location, int rating, String review, MultipartFile imageFile) {
         validateRating(rating);
 
         Post post = postRepository.findById(postId)
@@ -63,6 +63,18 @@ public class PostService {
         post.setLocation(location);
         post.setRating(rating);
         post.setReview(review);
+
+        if (imageFile != null && !imageFile.isEmpty()) {
+            try {
+                String imageUrl = s3Service.uploadFile(
+                        imageFile.getOriginalFilename(),
+                        imageFile.getInputStream(),
+                        imageFile.getContentType());
+                post.setImageUrl(imageUrl);
+            } catch (IOException e) {
+                throw new RuntimeException("Misslyckades att ladda upp ny bild till S3", e);
+            }
+        }
 
         return postRepository.save(post);
     }
