@@ -6,10 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
@@ -18,39 +16,61 @@ public class PostServiceTest {
     @Mock
     private PostRepository postRepository;
 
+    @Mock
+    private UserRepository userRepository;
+
     @InjectMocks
     private PostService postService;
 
     @Test
-    void testAddNewPost() {
-        Post newPost = new Post(null, 2L, "location", "Fint ställe", 5);
-        Post savedPost = new Post(1L, 2L, "location", "Fint ställe", 5);
+    public void testAddNewPost() {
+        int userId = 1;
+        String location = "Göteborg";
+        int rating = 4;
+        String review = "Trevligt ställe";
 
-        when(postRepository.save(newPost)).thenReturn(savedPost);
+        User user = new User();
+        user.setId(userId);
 
-        Post result = postService.addPost(newPost);
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(postRepository.save(any(Post.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        Post result = postService.createPost(userId, location, rating, review);
 
         assertNotNull(result);
-        assertEquals(1L, result.getId());
-        assertEquals(2L, result.getUserId());
-        assertEquals("Fint ställe", result.getReview());
-        assertEquals(5, result.getStars());
+        assertEquals(location, result.getLocation());
+        assertEquals(rating, result.getRating());
+        assertEquals(review, result.getReview());
+        assertEquals(user, result.getUser());
     }
 
     @Test
-    void testShowAllPosts() {
-        List<Post> mockPosts = List.of(
-                new Post(1L, 1L, "Örkelljunga", "Mjeaa", 3),
-                new Post(2L, 2L, "Hawaii", "Awsome", 5)
-        );
+    public void testDeletePost() {
+        int postId = 456;
+        when(postRepository.existsById(postId)).thenReturn(true);
 
-        when(postRepository.findAll()).thenReturn(mockPosts);
+        postService.deletePost(postId);
 
-        List<Post> result = postService.getAllPosts();
+        verify(postRepository, times(1)).deleteById(postId);
+    }
 
-        assertEquals(2, result.size());
-        assertEquals("Mjeaa", result.get(0).getReview());
-        assertEquals(5, result.get(1).getStars());
+    @Test
+    public void testUpdatePost() {
+        Post existingPost = new Post();
+        existingPost.setId(1);
+        existingPost.setLocation("Örkelljunga");
+        existingPost.setReview("Mjeaa");
+        existingPost.setRating(3);
+
+        when(postRepository.findById(1)).thenReturn(Optional.of(existingPost));
+        when(postRepository.save(any(Post.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        Post result = postService.updatePost(1, "Örkelljunga", 4, "Väldigt fin golfbana");
+
+        assertNotNull(result);
+        assertEquals("Örkelljunga", result.getLocation());
+        assertEquals(4, result.getRating());
+        assertEquals("Väldigt fin golfbana", result.getReview());
     }
 
 }
