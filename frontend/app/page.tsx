@@ -2,13 +2,20 @@ import Banner from "./components/components/Banner";
 import Card from "./components/components/Card";
 import Input from "./components/elements/Input";
 import { getReviews } from "./api/api";
+import { Review } from "@/types";
+// import Animation from "./components/components/Animation";
 
-export default async function Home() {
-  const data = await getReviews(0);
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) {
+  const { page } = await searchParams;
+  const data = await getReviews((page && parseInt(page)) || 0);
 
   return (
     <main>
-      <Banner>
+      <Banner imageUrl="/images/banner.png">
         <div className="relative w-full flex justify-center items-center">
           <p className="text-5xl font-bold text-white">Alla städer</p>
           <div className="absolute bottom-[-21vh] w-[40vw]">
@@ -17,54 +24,17 @@ export default async function Home() {
         </div>
       </Banner>
       <div className="grid grid-cols-3 p-18 gap-8">
-        <Card
-          image="https://picsum.photos/500/500"
-          location="Universeum"
-          city="Göteborg"
-          date="2023-10-01"
-          author="John Doe"
-          link="/stockholm"
-        />
-        <Card
-          image="https://picsum.photos/500/500"
-          location="Universeum"
-          city="Göteborg"
-          date="2023-10-01"
-          author="John Doe"
-          link="/stockholm"
-        />
-        <Card
-          image="https://picsum.photos/500/500"
-          location="Universeum"
-          city="Göteborg"
-          date="2023-10-01"
-          author="John Doe"
-          link="/stockholm"
-        />
-        <Card
-          image="https://picsum.photos/500/500"
-          location="Universeum"
-          city="Göteborg"
-          date="2023-10-01"
-          author="John Doe"
-          link="/stockholm"
-        />
-        <Card
-          image="https://picsum.photos/500/500"
-          location="Universeum"
-          city="Göteborg"
-          date="2023-10-01"
-          author="John Doe"
-          link="/stockholm"
-        />
-        <Card
-          image="https://picsum.photos/500/500"
-          location="Universeum"
-          city="Göteborg"
-          date="2023-10-01"
-          author="John Doe"
-          link="/stockholm"
-        />
+        {data.map((review: Review) => (
+          <Card
+            key={review.id}
+            image={review.image}
+            location={review.location}
+            city={review.city}
+            date={review.date}
+            author={review.author}
+            link={`/reviews/${review.id}`}
+          />
+        ))}
       </div>
     </main>
   );
