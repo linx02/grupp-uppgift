@@ -18,11 +18,11 @@ public class UserController {
     }
 
     //Lägger till en ny användare
-    @PostMapping
-    public ResponseEntity<String> addNewUser(User user) {
-
-        return ResponseEntity.ok("User added successfully");
-    }
+//    @PostMapping
+//    public ResponseEntity<String> addNewUser(User user) {
+//
+//        return ResponseEntity.ok("User added successfully");
+//    }
 
     //Tar bort en användare
     @DeleteMapping("/{id}")

@@ -1,6 +1,8 @@
 package com.caw24g.grupp_uppgift.controller;
 
 
+import com.caw24g.grupp_uppgift.models.User;
+import com.caw24g.grupp_uppgift.repositories.UserRepository;
 import com.caw24g.grupp_uppgift.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,10 +30,10 @@ public class AuthController {
         String email = data.get("email");
         String password = data.get("password");
 
-        Optional<User> userOpt = userRepository.findByEmail(email)
+        Optional<User> userOpt = userRepository.findByEmail(email);
 
-        // Kontrollera om användaren finns ochlösenordet stämmer
-        if (userOpt.isPresent() && userOpt.get().getPassword.equals(password)) {
+        // Kontrollera om användaren finns och lösenordet stämmer
+        if (userOpt.isPresent() && userOpt.get().getPassword().equals(password)) {
             String token = jwtUtil.generateToken(email); // Generera token för användare
             // Returnera att allt lyckats
             return ResponseEntity.ok(Map.of(
@@ -48,7 +50,9 @@ public class AuthController {
         String email = data.get("email");
         String password = data.get("password");
 
-        if (userRepository.existsByEmail(email)) {
+        Optional<User> existingUser = userRepository.findByEmail(email);
+
+        if (existingUser.isPresent()) {
             return ResponseEntity.badRequest().body(Map.of("error", "Användaren finns redan"));
         }
         // Skapa och spara ny användare

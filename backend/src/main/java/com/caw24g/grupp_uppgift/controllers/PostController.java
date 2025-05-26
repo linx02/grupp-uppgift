@@ -30,11 +30,11 @@ public class PostController {
 
     // Vi kan låta bli den här funktionaliteten för enkelhetens skull?
     //Uppdaterar ett inlägg
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updatePost() {
-
-        return ResponseEntity.ok("Post updated successfully");
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<String> updatePost() {
+//
+//        return ResponseEntity.ok("Post updated successfully");
+//    }
 
     //Tar bort ett inlägg
     @DeleteMapping("/{id}")
