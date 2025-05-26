@@ -16,6 +16,8 @@ public class Post {
 
     private int rating;
 
+    private String imageUrl;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -65,5 +67,13 @@ public class Post {
     }
 
     public void setUser(User user) {
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
