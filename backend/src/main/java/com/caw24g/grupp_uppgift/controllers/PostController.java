@@ -1,8 +1,11 @@
 package com.caw24g.grupp_uppgift.controllers;
 
+import com.caw24g.grupp_uppgift.models.Post;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/posts")
@@ -10,35 +13,36 @@ public class PostController {
 
     //Visar alla inlägg
     @GetMapping
-    public List<Post> getAllPosts() {
+    public ResponseEntity<List<String>> getAllPosts() {
 
-        return List;
+        List<String> posts = List.of("Post 1", "Post 2", "Post 3");
+        return ResponseEntity.ok(posts);
     }
 
     //Lägger till ett nytt inlägg
     @PostMapping
-    public Post addPost() {
+    public ResponseEntity<String> addPost() {
 
-        return post;
+        return ResponseEntity.ok("Post added successfully");
     }
 
     //Uppdaterar ett inlägg
     @PutMapping("/{id}")
-    public Post updatePost() {
+    public ResponseEntity<String> updatePost() {
 
-        return updatePost();
+        return ResponseEntity.ok("Post updated successfully");
     }
 
     //Tar bort ett inlägg
     @DeleteMapping("/{id}")
-    public ResponseEntity<> deletePost() {
+    public ResponseEntity<String> deletePost() {
 
-        return ResponseEntity;
+        return ResponseEntity.ok("Post deleted successfully");
     }
 
     @PostMapping("/{id}")
     public ResponseEntity<String> reviewPost() {
 
-        return ResponseEntity;
+        return ResponseEntity.ok("Post reviewed successfully");
     }
 }

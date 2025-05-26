@@ -1,5 +1,6 @@
 package com.caw24g.grupp_uppgift.controllers;
 
+import com.caw24g.grupp_uppgift.models.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -10,29 +11,30 @@ public class UserController {
 
     //Visar användarens profil
     @GetMapping
-    public User showUserPage() {
+    public ResponseEntity<String> showUserPage() {
 
-        return user;
+        String userProfile = "User Profile Information";
+        return ResponseEntity.ok(userProfile);
     }
 
     //Lägger till en ny användare
     @PostMapping
     public ResponseEntity<String> addNewUser(User user) {
 
-        return ResponseEntity;
+        return ResponseEntity.ok("User added successfully");
     }
 
     //Tar bort en användare
     @DeleteMapping("/{id}")
-    public ResponseEntity<> deleteUser() {
+    public ResponseEntity<String> deleteUser() {
 
-        return ResponseEntity;
+        return ResponseEntity.ok("User deleted successfully");
     }
 
     //Uppdaterar en användares information
     @PutMapping("/{id}")
-    public User updateUser() {
+    public ResponseEntity<String> updateUser() {
 
-        return updatedUser;
+        return ResponseEntity.ok("User updated successfully");
     }
 }
