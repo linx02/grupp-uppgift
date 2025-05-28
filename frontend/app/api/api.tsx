@@ -91,7 +91,7 @@ const GET = async (url: string) => {
   return res.json();
 };
 
-const POST = async (url: string, data: FormData) => {
+const POST = async (url: string, data: any) => {
   const res = await fetch(url, {
     method: "POST",
     headers: {
@@ -133,4 +133,36 @@ export const getReviewsByCity = async (city: string) => {
   }
   const res = await GET(`${baseUrl}/reviews/city/${city}`);
   return res;
+};
+
+export const register = async (data: FormData) => {
+  const body = {
+    email: data.get("email"),
+    password: data.get("password"),
+  };
+  const res = await POST(`${baseUrl}/api/auth/register`, body);
+  return res;
+};
+
+export const login = async (data: FormData) => {
+  const body = {
+    email: data.get("email"),
+    password: data.get("password"),
+  };
+  const res = await POST(`${baseUrl}/api/auth/login`, body);
+  return res;
+};
+
+export const validateToken = async (token: string) => {
+  const res = await fetch(`${baseUrl}/api/auth/validate`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error("Token validation failed");
+  }
+  return res.json();
 };
