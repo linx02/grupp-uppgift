@@ -1,4 +1,4 @@
-package com.caw24g.grupp_uppgift.controller;
+package com.caw24g.grupp_uppgift.controllers;
 
 
 import com.caw24g.grupp_uppgift.models.User;
@@ -32,8 +32,8 @@ public class AuthController {
 
         Optional<User> userOpt = userRepository.findByEmail(email);
 
-        // Kontrollera om användaren finns ochlösenordet stämmer
-        if (userOpt.isPresent() && userOpt.get().getPassword.equals(password)) {
+        // Kontrollera om användaren finns och lösenordet stämmer
+        if (userOpt.isPresent() && userOpt.get().getPassword().equals(password)) {
             String token = jwtUtil.generateToken(email); // Generera token för användare
             // Returnera att allt lyckats
             return ResponseEntity.ok(Map.of(
@@ -50,7 +50,9 @@ public class AuthController {
         String email = data.get("email");
         String password = data.get("password");
 
-        if (userRepository.existsByEmail(email)) {
+        Optional<User> existingUser = userRepository.findByEmail(email);
+
+        if (existingUser.isPresent()) {
             return ResponseEntity.badRequest().body(Map.of("error", "Användaren finns redan"));
         }
         // Skapa och spara ny användare

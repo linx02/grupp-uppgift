@@ -33,7 +33,7 @@ public class PostService {
 
     // Denna måste antingen ta filen som base64, eller så måste Controllern uppdateras
     @Transactional
-    public Post createPostWithImage(int userId, String location, int rating, String review, MultipartFile imageFile, int cityId) {
+    public Post createPost(int userId, String location, int rating, String review, MultipartFile imageFile, int cityId) {
         validateRating(rating);
 
         User user = userRepository.findById(userId)
