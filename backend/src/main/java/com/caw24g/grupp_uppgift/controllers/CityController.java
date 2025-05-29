@@ -3,6 +3,7 @@ package com.caw24g.grupp_uppgift.controllers;
 import com.caw24g.grupp_uppgift.models.City;
 import com.caw24g.grupp_uppgift.repositories.CityRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,12 +19,15 @@ public class CityController {
         this.cityRepository = cityRepository;
     }
 
+    @GetMapping
     public ResponseEntity<List<City>> getAllCities() {
         try {
             List<City> cities = cityRepository.findAll();
+            System.out.println("Antal städer: " + cities.size());
             return ResponseEntity.ok(cities);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(null);
         }
     }
+
 }
