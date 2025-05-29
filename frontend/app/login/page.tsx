@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { login } from "../api/api";
+import { login } from "../api";
 
 export default function LoginPage() {
   const router = useRouter();

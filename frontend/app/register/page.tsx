@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { register } from "../api/api";
+import { register } from "../api";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {

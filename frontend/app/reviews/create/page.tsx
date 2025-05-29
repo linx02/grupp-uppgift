@@ -1,10 +1,30 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createReview } from "@/app/api/api";
+import { useUser } from "@/app/hooks/useUser";
+import { createReview } from "@/app/api";
+import { City } from "@/types";
 
-export default async function CreateReviewPage() {
-  if (!document.cookie.includes("user_id")) {
+export default function CreateReviewPage() {
+  const user = useUser();
+
+  const [location, setLocation] = useState("");
+  const [city, setCity] = useState<City | null>(null);
+  const [review, setReview] = useState("");
+  const [rating, setRating] = useState(1);
+  const [image, setImage] = useState<File | null>(null);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  // Borde hämta städer från API men jag är för lat för att implementera det nu
+  const cities: City[] = [
+    { id: 1, name: "Stockholm" },
+    { id: 2, name: "Göteborg" },
+    { id: 3, name: "Malmö" },
+    { id: 4, name: "Uppsala" },
+  ];
+
+  if (!user) {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-100">
         <div className="bg-white p-8 rounded shadow-md w-96">
@@ -24,14 +44,6 @@ export default async function CreateReviewPage() {
     );
   }
 
-  const [location, setLocation] = useState("");
-  const [city, setCity] = useState("");
-  const [review, setReview] = useState("");
-  const [rating, setRating] = useState(1);
-  const [image, setImage] = useState<File | null>(null);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-
   const isValidForm = () => {
     if (!location || !city || !review || rating < 1 || rating > 5) {
       setError("Alla fält måste fyllas i korrekt.");
@@ -47,30 +59,43 @@ export default async function CreateReviewPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isValidForm()) return;
+    if (!isValidForm()) {
+      console.error("Formuläret är inte giltigt.");
+      return;
+    }
 
     try {
       const formData = new FormData();
       formData.append("location", location);
-      formData.append("city", city);
+      if (city) {
+        formData.append("cityId", city.id.toString());
+      }
       formData.append("review", review);
       formData.append("rating", rating.toString());
       if (image) {
-        formData.append("image", image);
+        formData.append("imageFile", image);
       }
 
-      const response = await createReview(formData);
-      if (response.success) {
-        setSuccess("Recension skapad framgångsrikt!");
+      const req = new Request("http://localhost:8080/posts", {
+        method: "POST",
+        body: formData,
+        headers: new Headers({
+          Authorization: `Bearer ${user.token}`,
+          // DO NOT add 'Content-Type' here — browser will do it with correct boundary
+        }),
+      });
+
+      const response = await fetch(req);
+
+      if (response.ok) {
+        setSuccess("Recension skapad!");
         setLocation("");
-        setCity("");
+        setCity(null);
         setReview("");
         setRating(1);
         setImage(null);
       } else {
-        setError(
-          response.message || "Ett fel uppstod vid skapandet av recensionen."
-        );
+        setError("Ett fel uppstod vid skapandet av recensionen.");
       }
     } catch (error) {
       console.error(error);
@@ -105,14 +130,24 @@ export default async function CreateReviewPage() {
             <label className="block text-sm font-medium mb-2" htmlFor="city">
               Stad
             </label>
-            <input
-              type="text"
+            <select
               id="city"
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
+              className="..."
+              value={city?.id || ""}
+              onChange={(e) =>
+                setCity(
+                  cities.find((c) => c.id === Number(e.target.value)) || null
+                )
+              }
               required
-            />
+            >
+              <option value="">Välj stad</option>
+              {cities.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="mb-4">
             <label className="block text-sm font-medium mb-2" htmlFor="review">
@@ -121,6 +156,8 @@ export default async function CreateReviewPage() {
             <textarea
               id="review"
               rows={4}
+              value={review}
+              onChange={(e) => setReview(e.target.value)}
               className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             ></textarea>
@@ -135,6 +172,8 @@ export default async function CreateReviewPage() {
               min={1}
               max={5}
               className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={rating}
+              onChange={(e) => setRating(Number(e.target.value))}
               required
             />
           </div>
@@ -145,13 +184,17 @@ export default async function CreateReviewPage() {
             <input
               type="file"
               id="image"
+              onChange={(e) => {
+                const file = e.target.files?.[0] || null;
+                setImage(file);
+              }}
               accept="image/*"
               className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition duration-200"
+            className="w-full bg-blue-600 text-white py-2 mt-4 cursor-pointer rounded hover:bg-blue-700 transition duration-200"
           >
             Skapa Recension
           </button>

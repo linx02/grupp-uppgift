@@ -1,10 +1,21 @@
+interface City {
+  id: number;
+  name: string;
+}
+
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
 export interface Review {
   id: string | number;
   location: string;
   review: string;
   rating: number;
-  author: string;
-  image: string;
+  user: User;
+  imageUrl: string;
   date: string;
-  city: string;
+  city: City;
 }
