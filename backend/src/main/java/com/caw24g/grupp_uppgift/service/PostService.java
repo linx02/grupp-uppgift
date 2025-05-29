@@ -48,6 +48,8 @@ public class PostService {
                         imageFile.getContentType());
             } catch (IOException e) {
                 throw new RuntimeException("Misslyckades att ladda upp bild till S3", e);
+            } catch (Exception e) {
+                throw new RuntimeException("Ett fel uppstod vid uppladdning av bild", e);
             }
         }
 

@@ -42,7 +42,7 @@ public class PostController {
     }
 
     //skapa inlägg med bild
-    @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Post> addPost(
             @RequestHeader("Authorization") String authHeader,
             @RequestParam("location") String location,
@@ -59,7 +59,7 @@ public class PostController {
                     .orElseThrow(() -> new IllegalArgumentException("Användare finns inte"));
 
             //Skapa inlägg
-            Post post = postService.createPostWithImage(user.getId(), location, rating, review, imageFile, cityId);
+            Post post = postService.createPost(user.getId(), location, rating, review, imageFile, cityId);
             return ResponseEntity.status(HttpStatus.CREATED).body(post);
 
         } catch (Exception e) {

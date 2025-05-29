@@ -23,13 +23,17 @@ public class SecurityConfig {
                         .requestMatchers("GET", "/posts").permitAll()
                         .requestMatchers("GET", "/posts/*").permitAll()
 
+                        // Cities läsning - publik
+                        .requestMatchers("GET", "/cities").permitAll()
+                        .requestMatchers("GET", "/cities/*").permitAll()
+
                         // Posts skrivning - kräver auth
-                        .requestMatchers("POST", "/posts").authenticated()
+                        .requestMatchers("POST", "/posts").permitAll()
                         .requestMatchers("PUT", "/posts/*").authenticated()
                         .requestMatchers("DELETE", "/posts/*").authenticated()
 
                         // Allt annat kräver auth
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 );
 
         return http.build();
