@@ -42,7 +42,7 @@ public class S3Service {
                 .bucket(bucketName)
                 .key(key)
                 .contentType(contentType)
-                .acl(ObjectCannedACL.PUBLIC_READ)
+                //.acl(ObjectCannedACL.PUBLIC_READ)
                 .build();
 
         s3Client.putObject(putRequest, software.amazon.awssdk.core.sync.RequestBody.fromInputStream(fileStream,
