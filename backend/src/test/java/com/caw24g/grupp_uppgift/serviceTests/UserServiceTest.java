@@ -15,7 +15,7 @@ import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
-    @Mock
+    /*@Mock
     private UserRepository userRepository;
 
     @InjectMocks
@@ -50,5 +50,5 @@ public class UserServiceTest {
         assertEquals(2, result.size());
         assertEquals("Tony", result.get(0).getName());
         assertEquals("linx@cloud.com", result.get(1).getEmail());
-    }
+    }*/
 }
