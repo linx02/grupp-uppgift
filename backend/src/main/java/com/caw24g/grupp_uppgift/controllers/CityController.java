@@ -23,7 +23,6 @@ public class CityController {
     public ResponseEntity<List<City>> getAllCities() {
         try {
             List<City> cities = cityRepository.findAll();
-            System.out.println("Antal städer: " + cities.size());
             return ResponseEntity.ok(cities);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(null);

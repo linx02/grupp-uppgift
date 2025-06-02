@@ -42,6 +42,7 @@ public class PostController {
     }
 
     //skapa inlägg med bild
+    @CrossOrigin(origins = "*")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Post> addPost(
             @RequestHeader("Authorization") String authHeader,
