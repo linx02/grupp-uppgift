@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.caw24g.grupp_uppgift.securityTests.JwtUtilTest
 -------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.554 s -- in com.caw24g.grupp_uppgift.securityTests.JwtUtilTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.576 s -- in com.caw24g.grupp_uppgift.securityTests.JwtUtilTest
