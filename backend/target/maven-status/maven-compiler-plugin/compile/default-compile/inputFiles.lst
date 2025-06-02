@@ -1,0 +1,16 @@
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/GruppUppgiftApplication.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/controllers/AuthController.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/controllers/CityController.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/controllers/MainController.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/controllers/PostController.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/controllers/UserController.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/models/City.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/models/Post.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/models/User.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/repositories/CityRepository.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/repositories/PostRepository.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/repositories/UserRepository.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/security/JwtUtil.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/security/SecurityConfig.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/service/PostService.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/main/java/com/caw24g/grupp_uppgift/service/S3Service.java

@@ -1,0 +1,6 @@
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/test/java/com/caw24g/grupp_uppgift/GruppUppgiftApplicationTests.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/test/java/com/caw24g/grupp_uppgift/controllersTests/AuthControllerTest.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/test/java/com/caw24g/grupp_uppgift/controllersTests/PostTest.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/test/java/com/caw24g/grupp_uppgift/securityTests/JwtUtilTest.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/test/java/com/caw24g/grupp_uppgift/serviceTests/PostServiceTest.java
+/Users/linuselvius/Documents/grupp-uppgift/backend/src/test/java/com/caw24g/grupp_uppgift/serviceTests/UserServiceTest.java

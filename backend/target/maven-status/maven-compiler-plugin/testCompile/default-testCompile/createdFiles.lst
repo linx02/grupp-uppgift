@@ -1,0 +1,4 @@
+com/caw24g/grupp_uppgift/serviceTests/UserServiceTest.class
+com/caw24g/grupp_uppgift/GruppUppgiftApplicationTests.class
+com/caw24g/grupp_uppgift/securityTests/JwtUtilTest.class
+com/caw24g/grupp_uppgift/controllersTests/PostTest.class

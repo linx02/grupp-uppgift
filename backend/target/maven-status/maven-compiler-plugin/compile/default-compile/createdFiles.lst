@@ -1,0 +1,16 @@
+com/caw24g/grupp_uppgift/repositories/CityRepository.class
+com/caw24g/grupp_uppgift/repositories/PostRepository.class
+com/caw24g/grupp_uppgift/GruppUppgiftApplication.class
+com/caw24g/grupp_uppgift/controllers/PostController.class
+com/caw24g/grupp_uppgift/security/JwtUtil.class
+com/caw24g/grupp_uppgift/controllers/UserController.class
+com/caw24g/grupp_uppgift/models/Post.class
+com/caw24g/grupp_uppgift/controllers/AuthController.class
+com/caw24g/grupp_uppgift/models/User.class
+com/caw24g/grupp_uppgift/security/SecurityConfig.class
+com/caw24g/grupp_uppgift/repositories/UserRepository.class
+com/caw24g/grupp_uppgift/service/S3Service.class
+com/caw24g/grupp_uppgift/models/City.class
+com/caw24g/grupp_uppgift/controllers/MainController.class
+com/caw24g/grupp_uppgift/service/PostService.class
+com/caw24g/grupp_uppgift/controllers/CityController.class
